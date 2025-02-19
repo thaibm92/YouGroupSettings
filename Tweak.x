@@ -1,6 +1,6 @@
 #import <YouTubeHeader/YTIIcon.h>
 #import <YouTubeHeader/YTSettingsGroupData.h>
-#import <rootless.h>
+#import <PSHeader/Misc.h>
 
 #define LOC(x) [tweakBundle localizedStringForKey:x value:nil table:nil]
 
@@ -11,16 +11,14 @@
 static const NSInteger TweakGroup = 'psyt';
 static const NSInteger YTIcons = 'ytic';
 static const NSInteger YouChooseQuality = 'ycql';
+static const NSInteger YouSlider = 'ytsl';
 
 NSBundle *TweakBundle() {
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSString *tweakBundlePath = [[NSBundle mainBundle] pathForResource:@"YouGroupSettings" ofType:@"bundle"];
-        if (tweakBundlePath)
-            bundle = [NSBundle bundleWithPath:tweakBundlePath];
-        else
-            bundle = [NSBundle bundleWithPath:ROOT_PATH_NS(@"/Library/Application Support/YouGroupSettings.bundle")];
+        bundle = [NSBundle bundleWithPath:tweakBundlePath ?: PS_ROOT_PATH_NS(@"/Library/Application Support/YouGroupSettings.bundle")];
     });
     return bundle;
 }
@@ -53,6 +51,7 @@ NSBundle *TweakBundle() {
             @(1080), // Return YouTube Dislike
             @(YouChooseQuality),
             @(200), // YouPiP
+            @(YouSlider),
             @(2168), // YTHoldForSpeed
             @(1222), // YTVideoOverlay
         ]];
